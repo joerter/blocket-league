@@ -66,6 +66,7 @@
             height: 100px;
             width: 100px;
             border: 4px solid black;
+            border-radius: 50%;
         }
 
         .goal {
@@ -92,9 +93,6 @@
             right: -39px;
             border-right: 3px solid white;
         }
-
-        
-
     </style>
 </head>
 
@@ -102,11 +100,58 @@
     <!-- <marquee>BLOCKET LEAGUE 3              2               1               GO</marquee> -->
     <div class="arena green">
     <div class="centerline white"></div>
-        <div class="goal blue"></div>
-        <div class="goal orange"></div>
-        <div class="car blue"></div>
-        <div class="car orange"></div>
-        <div class="ball white"></div>
+    <div class="goal blue"></div>
+    <div class="goal orange"></div>
+    <div id="playerOne" class="car blue"></div>
+    <div id="playerTwo" class="car orange"></div>
+    <div class="ball white"></div>
 
+    <script>
+        const KEY_CODES = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', `KeyW`, `KeyS`, 'KeyA', `KeyD` ]; 
+        var KEY_DOWN = [false, false, false, false, false, false, false, false, ]
+        
+        const playerOne = document.getElementById('playerOne');
+        const playerTwo = document.getElementById('playerTwo');
+
+        function handleKeyPress(player) {
+            const Player1_currentTop = playerOne.offsetTop;
+            const Player2_currentTop = playerTwo.offsetTop;
+            const Player1_currentLeft = playerOne.offsetLeft;
+            const Player2_currentLeft = playerTwo.offsetLeft;
+        
+            if(KEY_DOWN[0] === true) {playerOne.style.top = `${Player1_currentTop - 10}px`;}
+            if(KEY_DOWN[1] === true) {playerOne.style.top = `${Player1_currentTop + 10}px`;}
+            if(KEY_DOWN[2] === true) {playerOne.style.left = `${Player1_currentLeft - 10}px`;}
+            if(KEY_DOWN[3] === true) {playerOne.style.left = `${Player1_currentLeft + 10}px`;}
+            if(KEY_DOWN[4] === true) {playerTwo.style.top = `${Player2_currentTop - 10}px`;}
+            if(KEY_DOWN[5] === true) {playerTwo.style.top = `${Player2_currentTop + 10}px`;}
+            if(KEY_DOWN[6] === true) {playerTwo.style.left = `${Player2_currentLeft - 10}px`;}
+            if(KEY_DOWN[7] === true) {playerTwo.style.left = `${Player2_currentLeft + 10}px`;}
+        }
+        document.addEventListener(`keydown`, event => {
+ 
+            for(i = 0; i < KEY_CODES.length; i++){
+                
+                if(event.code === KEY_CODES[i]){
+                    KEY_DOWN[i] = true
+                }
+            }
+        handleKeyPress();
+        console.log(KEY_CODES);
+        });
+
+        document.addEventListener(`keyup`, event => {
+            console.log(event);
+ 
+            for(i = 0; i < KEY_CODES.length; i++){
+                
+                if(event.code === KEY_CODES[i]){
+                    KEY_DOWN[i] = false
+                }
+            }
+        handleKeyPress();
+        console.log(KEY_CODES);
+        });
+    </script>
 </body>
 </html>
